@@ -4,60 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="7dp"
     tools:context=".ForecastFragment"
     android:id="@+id/container">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="30dp"
+        android:orientation="vertical"
+        android:id="@+id/llayout"
+        android:isScrollContainer="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingHorizontal="20dp">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:paddingHorizontal="20dp">-->
 
             <!-- Include other widget or layout tags here. These are considered
                     "child views" or "children" of the linear layout -->
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:layout_gravity="center_vertical"
-                android:text="Mon"/>
+<!--            <TextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="3"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="Mon"/>-->
 
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="200dp"
-                android:layout_weight="3"
-                android:contentDescription="@string/image"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/rain1" />
+<!--            <ImageView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="200dp"-->
+<!--                android:layout_weight="3"-->
+<!--                android:contentDescription="@string/image"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:src="@drawable/rain1" />-->
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:layout_gravity="center_vertical"
-                android:layout_marginHorizontal="30dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="Partly Cloudy"
-                    android:layout_weight="1" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:text="24C-31C"
-                    android:layout_weight="1"/>
-            </LinearLayout>
-        </LinearLayout>
+<!--            <LinearLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="7"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_marginHorizontal="30dp"-->
+<!--                android:orientation="vertical">-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:text="Partly Cloudy"-->
+<!--                    android:layout_weight="1" />-->
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:text="24C-31C"-->
+<!--                    android:layout_weight="1"/>-->
+<!--            </LinearLayout>-->
+<!--        </LinearLayout>-->
 
     </LinearLayout>
 </FrameLayout>
