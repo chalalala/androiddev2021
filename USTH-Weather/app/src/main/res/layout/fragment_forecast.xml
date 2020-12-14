@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="7dp"
-    tools:context=".ForecastFragment"
-    android:id="@+id/container">
+    tools:context=".ForecastFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
