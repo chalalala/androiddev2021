@@ -5,22 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WeatherActivity"
+    android:id="@+id/container"
     >
-    <LinearLayout
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/container"-->
+<!--        android:padding="15dp"-->
+<!--        android:orientation="vertical">-->
+<!--        <fragment-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:name="vn.edu.usth.weather.WeatherFragment"/>-->
+<!--        <fragment-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:name="vn.edu.usth.weather.ForecastFragment"/>-->
+<!--    </LinearLayout>-->
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/container"
-        android:padding="15dp"
-        android:orientation="vertical">
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:name="vn.edu.usth.weather.WeatherFragment"/>
-        <fragment
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:name="vn.edu.usth.weather.ForecastFragment"/>
-    </LinearLayout>
+        android:name="vn.edu.usth.weather.WeatherAndForecastFragment"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
