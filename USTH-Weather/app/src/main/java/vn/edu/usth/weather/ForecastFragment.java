@@ -65,7 +65,7 @@ public class ForecastFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_forecast, container, false);
-        view.setBackgroundColor(Color.parseColor("#f0f0ff"));
+//        view.setBackgroundColor(Color.parseColor("#f0f0ff"));
 
         LinearLayout llayout = (LinearLayout) view.findViewById(R.id.llayout);
 
@@ -75,7 +75,7 @@ public class ForecastFragment extends Fragment {
             // Create LinearLayout
             LinearLayout row = new LinearLayout(this.getActivity());
             LinearLayout.LayoutParams row_params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, 0, 1f);
+                    LinearLayout.LayoutParams.MATCH_PARENT, 200, 0);
             row_params.setMargins(0, 10, 0, 10);
             row.setLayoutParams(row_params);
             row.setOrientation(LinearLayout.HORIZONTAL);
