@@ -62,7 +62,7 @@ public class WeatherAndForecastFragment extends Fragment {
         WeatherFragment childFragment1 = new WeatherFragment();
         ForecastFragment childFragment2 = new ForecastFragment();
         getChildFragmentManager().beginTransaction()
-        .add(R.id.child_fragment_container, childFragment1)
+        .replace(R.id.child_fragment_container, childFragment1)
             .add(R.id.child_fragment_container, childFragment2)
             .commit();
     }
