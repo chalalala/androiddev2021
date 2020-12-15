@@ -2,6 +2,7 @@ package vn.edu.usth.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,6 +13,7 @@ import android.widget.Toast; // Use Toast class to display message
 import android.os.Bundle;
 
 public class WeatherActivity extends AppCompatActivity {
+//    FragmentPagerAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,12 +28,12 @@ public class WeatherActivity extends AppCompatActivity {
 //        getSupportFragmentManager().beginTransaction().add(R.id.container, secondFragment).commit();
 //        getSupportFragmentManager().beginTransaction().add(R.id.container, firstFragment).commit();
 
-//        PagerAdapter adapter = new HomeFragmentPagerAdapter(
-//                getSupportFragmentManager()
-//        );
-//        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        PagerAdapter adapter = new HomeFragmentPagerAdapter(
+                getSupportFragmentManager()
+        );
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
 //        pager.setOffscreenPageLimit(3);
-//        pager.setAdapter(adapter);
+        pager.setAdapter(adapter);
     }
 
     @Override
