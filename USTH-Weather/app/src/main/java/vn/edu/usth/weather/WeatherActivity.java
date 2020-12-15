@@ -12,6 +12,8 @@ import android.widget.Toast; // Use Toast class to display message
 
 import android.os.Bundle;
 
+import com.google.android.material.tabs.TabLayout;
+
 public class WeatherActivity extends AppCompatActivity {
 //    FragmentPagerAdapter adapter;
 
@@ -34,6 +36,8 @@ public class WeatherActivity extends AppCompatActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
 //        pager.setOffscreenPageLimit(3);
         pager.setAdapter(adapter);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
+        tabLayout.setupWithViewPager(pager);
     }
 
     @Override
