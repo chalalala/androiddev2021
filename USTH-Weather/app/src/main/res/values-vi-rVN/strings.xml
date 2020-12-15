@@ -11,4 +11,7 @@
     <string name="fri">Thứ sáu</string>
     <string name="sat">Thứ bảy</string>
     <string name="sun">Chủ nhật</string>
+    <string name="rainy">Mưa</string>
+    <string name="sunny">Nắng</string>
+    <string name="windy">Gió</string>
 </resources>

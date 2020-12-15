@@ -3,6 +3,9 @@
     <string name="image">Image</string>
     <string name="hanoi">Hanoi</string>
     <string name="cloudy">Cloudy</string>
+    <string name="rainy">Rainy</string>
+    <string name="sunny">Sunny</string>
+    <string name="windy">Windy</string>
     <string name="mon">Mon</string>
     <string name="tue">Tue</string>
     <string name="wed">Wed</string>

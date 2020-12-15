@@ -94,7 +94,7 @@ public class ForecastFragment extends Fragment {
 
             // Random status
             int[] icons = {R.drawable.sun, R.drawable.wind, R.drawable.rain1, R.drawable.cloudy};
-            String[] stt = {"Sunny", "Windy", "Rainy", "Cloudy"};
+            int[] stt = {R.string.sunny, R.string.windy, R.string.rainy, R.string.cloudy};
             int n = (int)(Math.random()*4);
 
             // Icons
