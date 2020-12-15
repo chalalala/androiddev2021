@@ -69,7 +69,7 @@ public class ForecastFragment extends Fragment {
 
         LinearLayout llayout = (LinearLayout) view.findViewById(R.id.llayout);
 
-        String[] dates = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+        int[] dates = {R.string.mon, R.string.tue, R.string.wed, R.string.thu, R.string.fri, R.string.sat, R.string.sun};
 
         for (int i=0; i<dates.length; i++){
             // Create LinearLayout

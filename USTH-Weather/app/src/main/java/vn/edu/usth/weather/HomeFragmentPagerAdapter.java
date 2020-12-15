@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     private final int PAGE_COUNT = 3;
+    private String[] title = {"Hanoi, Vietnam", "Paris, France", "Toulouse, France"};
     public HomeFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -28,6 +29,6 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     }
     @Override
     public CharSequence getPageTitle(int page) {
-        return "Page " + page;
+        return title[page];
     }
 }
