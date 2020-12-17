@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,10 @@ import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class WeatherActivity extends AppCompatActivity {
@@ -47,8 +52,36 @@ public class WeatherActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setupWithViewPager(pager);
 
+        copyFiletoExternalStorage(R.raw.theme_song, "theme_song.mp3");
         MediaPlayer music = MediaPlayer.create(this, R.raw.theme_song);
         music.start();
+    }
+
+
+    private void copyFiletoExternalStorage(int resourceId, String resourceName){
+
+        try{
+//            File file = new File(getExternalFilesDir(null), resourceName);
+            File file = new File(getExternalFilesDir(null), resourceName);
+            InputStream in = getResources().openRawResource(resourceId);
+            FileOutputStream out = new FileOutputStream(file);
+            byte[] buff = new byte[1024];
+            int read = 0;
+            try {
+                while ((read = in.read(buff)) > 0) {
+                    out.write(buff, 0, read);
+                }
+            } finally {
+                in.close();
+                out.close();
+            }
+        } catch (FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(), "Errors!", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -98,6 +131,7 @@ public class WeatherActivity extends AppCompatActivity {
             case R.id.action_refresh:
             {
                 Toast.makeText(getApplicationContext(), "Refreshing...", Toast.LENGTH_SHORT).show();
+                recreate();
                 return true;
             }
             case R.id.action_settings:
