@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="0dp"
     tools:context=".WeatherFragment"
-    android:layout_weight="1"
+    android:id="@+id/weather_fragment"
     >
 
     <RelativeLayout
@@ -43,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="@string/hanoi"
-            android:layout_margin="50dp"/>
+            android:layout_margin="50dp"
+            android:id="@+id/location"/>
 
         <ImageView
             android:layout_width="match_parent"

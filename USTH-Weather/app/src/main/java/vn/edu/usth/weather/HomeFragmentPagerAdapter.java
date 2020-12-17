@@ -18,13 +18,12 @@ public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int page) {
     // returns an instance of Fragment corresponding to the specified page
         switch (page) {
-            case 0: return WeatherAndForecastFragment.newInstance();
-            case 1: return WeatherAndForecastFragment.newInstance();
-            case 2: return WeatherAndForecastFragment.newInstance();
-
+            case 0: return WeatherAndForecastFragment.newInstance("Hanoi");
+            case 1: return WeatherAndForecastFragment.newInstance("Paris");
+            case 2: return WeatherAndForecastFragment.newInstance("Toulouse");
 
             default:
-                return WeatherAndForecastFragment.newInstance();
+                return null;
         }
     }
     @Override

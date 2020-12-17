@@ -50,7 +50,6 @@ public class WeatherFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         view.setBackgroundColor(Color.parseColor("#f0f0ff"));
-
         return view;
     }
 }
