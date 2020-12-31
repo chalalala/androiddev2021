@@ -94,39 +94,6 @@ public class WeatherActivity extends AppCompatActivity {
 //            }
 //        });
 //        t.start();
-
-        AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
-            @Override
-            protected void onPreExecute() {
-                // do some preparation here, if needed
-            }
-            @Override
-            protected Bitmap doInBackground(String... params) {
-                // This is where the worker thread's code is executed
-                // params are passed from the execute() method call
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }
-            @Override
-            protected void onProgressUpdate(Integer... values) {
-                // This method is called in the main thread, so it's possible
-                // to update UI to reflect the worker thread progress here.
-                // In a network access task, this should update a progress bar
-                // to reflect how many percent of data has been retrieved
-            }
-            @Override
-            protected void onPostExecute(Bitmap bitmap) {
-                // This method is called in the main thread. After #doInBackground returns
-                // the bitmap data, we simply set it to an ImageView using ImageView.setImageBitmap()
-                //                // Assume that we got our data from server
-                Toast.makeText(getApplicationContext(), "some sample json here", Toast.LENGTH_SHORT).show();
-            }
-        };
-        task.execute("http://ict.usth.edu.vn/wp-content/uploads/usth/usthlogo.png");
     }
 
 
@@ -202,8 +169,38 @@ public class WeatherActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_refresh:
             {
-                Toast.makeText(getApplicationContext(), "Refreshing...", Toast.LENGTH_SHORT).show();
-                recreate();
+                AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
+                    @Override
+                    protected void onPreExecute() {
+                        // do some preparation here, if needed
+                    }
+                    @Override
+                    protected Bitmap doInBackground(String... params) {
+                        // This is where the worker thread's code is executed
+                        // params are passed from the execute() method call
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                    @Override
+                    protected void onProgressUpdate(Integer... values) {
+                        // This method is called in the main thread, so it's possible
+                        // to update UI to reflect the worker thread progress here.
+                        // In a network access task, this should update a progress bar
+                        // to reflect how many percent of data has been retrieved
+                    }
+                    @Override
+                    protected void onPostExecute(Bitmap bitmap) {
+                        // This method is called in the main thread. After #doInBackground returns
+                        // the bitmap data, we simply set it to an ImageView using ImageView.setImageBitmap()
+                        //                // Assume that we got our data from server
+                        Toast.makeText(getApplicationContext(), "some sample json here", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                task.execute("http://ict.usth.edu.vn/wp-content/uploads/usth/usthlogo.png");
                 return true;
             }
             case R.id.action_settings:
