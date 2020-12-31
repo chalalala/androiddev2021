@@ -34,14 +34,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class WeatherActivity extends AppCompatActivity {
-    final Handler handler = new Handler(Looper.getMainLooper()) {
-        @Override
-        public void handleMessage(Message msg) {
-            // This method is executed in main thread
-            String content = msg.getData().getString("server_response");
-            Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
-        }
-    };
+//    final Handler handler = new Handler(Looper.getMainLooper()) {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            // This method is executed in main thread
+//            String content = msg.getData().getString("server_response");
+//            Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+//        }
+//    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -123,12 +123,7 @@ public class WeatherActivity extends AppCompatActivity {
                 // This method is called in the main thread. After #doInBackground returns
                 // the bitmap data, we simply set it to an ImageView using ImageView.setImageBitmap()
                 //                // Assume that we got our data from server
-                Bundle bundle = new Bundle();
-                bundle.putString("server_response", "some sample json here");
-                // notify main thread
-                Message msg = new Message();
-                msg.setData(bundle);
-                handler.sendMessage(msg);
+                Toast.makeText(getApplicationContext(), "some sample json here", Toast.LENGTH_SHORT).show();
             }
         };
         task.execute("http://ict.usth.edu.vn/wp-content/uploads/usth/usthlogo.png");
