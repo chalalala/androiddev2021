@@ -9,7 +9,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
@@ -68,19 +70,59 @@ public class WeatherActivity extends AppCompatActivity {
 //        MediaPlayer music = MediaPlayer.create(this, R.raw.theme_song);
 //        music.start();
 
-        Thread t = new Thread(new Runnable() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//        Thread t = new Thread(new Runnable() {
+//            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+//            @Override
+//            public void run() {
+//            // this method is run in a worker thread
+//                try {
+//                // wait for 3 seconds to simulate a long network access
+//                    Thread.sleep(3000);
+//                }
+//                catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                // Assume that we got our data from server
+//                Bundle bundle = new Bundle();
+//                bundle.putString("server_response", "some sample json here");
+//                // notify main thread
+//                Message msg = new Message();
+//                msg.setData(bundle);
+//                handler.sendMessage(msg);
+//
+//
+//            }
+//        });
+//        t.start();
+
+        AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
             @Override
-            public void run() {
-            // this method is run in a worker thread
+            protected void onPreExecute() {
+                // do some preparation here, if needed
+            }
+            @Override
+            protected Bitmap doInBackground(String... params) {
+                // This is where the worker thread's code is executed
+                // params are passed from the execute() method call
                 try {
-                // wait for 3 seconds to simulate a long network access
                     Thread.sleep(3000);
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                // Assume that we got our data from server
+                return null;
+            }
+            @Override
+            protected void onProgressUpdate(Integer... values) {
+                // This method is called in the main thread, so it's possible
+                // to update UI to reflect the worker thread progress here.
+                // In a network access task, this should update a progress bar
+                // to reflect how many percent of data has been retrieved
+            }
+            @Override
+            protected void onPostExecute(Bitmap bitmap) {
+                // This method is called in the main thread. After #doInBackground returns
+                // the bitmap data, we simply set it to an ImageView using ImageView.setImageBitmap()
+                //                // Assume that we got our data from server
                 Bundle bundle = new Bundle();
                 bundle.putString("server_response", "some sample json here");
                 // notify main thread
@@ -88,8 +130,8 @@ public class WeatherActivity extends AppCompatActivity {
                 msg.setData(bundle);
                 handler.sendMessage(msg);
             }
-        });
-        t.start();
+        };
+        task.execute("http://ict.usth.edu.vn/wp-content/uploads/usth/usthlogo.png");
     }
 
 
