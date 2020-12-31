@@ -1,5 +1,6 @@
 package vn.edu.usth.weather;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -9,7 +10,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +32,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class WeatherActivity extends AppCompatActivity {
-//    FragmentPagerAdapter adapter;
+    final Handler handler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            // This method is executed in main thread
+            String content = msg.getData().getString("server_response");
+            Toast.makeText(getApplicationContext(), content, Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,9 +64,32 @@ public class WeatherActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab);
         tabLayout.setupWithViewPager(pager);
 
-        copyFiletoExternalStorage(R.raw.theme_song, "theme_song.mp3");
-        MediaPlayer music = MediaPlayer.create(this, R.raw.theme_song);
-        music.start();
+//        copyFiletoExternalStorage(R.raw.theme_song, "theme_song.mp3");
+//        MediaPlayer music = MediaPlayer.create(this, R.raw.theme_song);
+//        music.start();
+
+        Thread t = new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void run() {
+            // this method is run in a worker thread
+                try {
+                // wait for 5 seconds to simulate a long network access
+                    Thread.sleep(5000);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                // Assume that we got our data from server
+                Bundle bundle = new Bundle();
+                bundle.putString("server_response", "some sample json here");
+                // notify main thread
+                Message msg = new Message();
+                msg.setData(bundle);
+                handler.sendMessage(msg);
+            }
+        });
+        t.start();
     }
 
 
