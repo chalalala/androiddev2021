@@ -74,8 +74,8 @@ public class WeatherActivity extends AppCompatActivity {
             public void run() {
             // this method is run in a worker thread
                 try {
-                // wait for 5 seconds to simulate a long network access
-                    Thread.sleep(5000);
+                // wait for 3 seconds to simulate a long network access
+                    Thread.sleep(3000);
                 }
                 catch (InterruptedException e) {
                     e.printStackTrace();
