@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -20,6 +21,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast; // Use Toast class to display message
 
@@ -32,6 +34,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class WeatherActivity extends AppCompatActivity {
 //    final Handler handler = new Handler(Looper.getMainLooper()) {
@@ -169,38 +174,7 @@ public class WeatherActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_refresh:
             {
-                AsyncTask<String, Integer, Bitmap> task = new AsyncTask<String, Integer, Bitmap>() {
-                    @Override
-                    protected void onPreExecute() {
-                        // do some preparation here, if needed
-                    }
-                    @Override
-                    protected Bitmap doInBackground(String... params) {
-                        // This is where the worker thread's code is executed
-                        // params are passed from the execute() method call
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return null;
-                    }
-                    @Override
-                    protected void onProgressUpdate(Integer... values) {
-                        // This method is called in the main thread, so it's possible
-                        // to update UI to reflect the worker thread progress here.
-                        // In a network access task, this should update a progress bar
-                        // to reflect how many percent of data has been retrieved
-                    }
-                    @Override
-                    protected void onPostExecute(Bitmap bitmap) {
-                        // This method is called in the main thread. After #doInBackground returns
-                        // the bitmap data, we simply set it to an ImageView using ImageView.setImageBitmap()
-                        //                // Assume that we got our data from server
-                        Toast.makeText(getApplicationContext(), "some sample json here", Toast.LENGTH_SHORT).show();
-                    }
-                };
-                task.execute("http://ict.usth.edu.vn/wp-content/uploads/usth/usthlogo.png");
+                new task().execute();
                 return true;
             }
             case R.id.action_settings:
@@ -213,5 +187,40 @@ public class WeatherActivity extends AppCompatActivity {
                 super.onOptionsItemSelected(item);
         }
         return false;
+    }
+
+    private class task extends AsyncTask<URL, Void, Bitmap>{
+        Bitmap bitmap;
+        @Override
+        protected Bitmap doInBackground(URL... urls) {
+
+            try {
+                URL url = new URL("https://usth.edu.vn/uploads/chuong-trinh/2017_01/logo-moi_2.png");
+
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setDoInput(true);
+                connection.connect();
+
+                int response = connection.getResponseCode();
+                Log.i("USTH Weather", "The response is: "+response);
+
+                InputStream is = connection.getInputStream();
+                bitmap = BitmapFactory.decodeStream(is);
+
+                connection.disconnect();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap){
+            ImageView logo = (ImageView) findViewById(R.id.logo);
+            logo.setImageBitmap(bitmap);
+        }
     }
 }
