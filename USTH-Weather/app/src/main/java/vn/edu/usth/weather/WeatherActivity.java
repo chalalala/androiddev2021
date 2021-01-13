@@ -27,6 +27,10 @@ import android.widget.Toast; // Use Toast class to display message
 
 import android.os.Bundle;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.File;
@@ -174,7 +178,25 @@ public class WeatherActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_refresh:
             {
-                new task().execute();
+//                new task().execute();
+                // once, should be performed once per app instance
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                // a listener (kinda similar to onPostExecute())
+                Response.Listener<Bitmap> listener =
+                        new Response.Listener<Bitmap>() {
+                            @Override
+                            public void onResponse(Bitmap response) {
+                                ImageView iv = (ImageView) findViewById(R.id.logo);
+                                iv.setImageBitmap(response);
+                            }
+                        };
+                // a simple request to the required image
+                ImageRequest imageRequest = new ImageRequest(
+                        "https://usth.edu.vn/uploads/chuong-trinh/2017_01/logo-moi_2.png",
+                        listener, 0, 0, ImageView.ScaleType.CENTER,
+                        Bitmap.Config.ARGB_8888,null);
+                // go!
+                queue.add(imageRequest);
                 return true;
             }
             case R.id.action_settings:
