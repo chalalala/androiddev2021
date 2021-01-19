@@ -23,15 +23,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast; // Use Toast class to display message
 
 import android.os.Bundle;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.tabs.TabLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -179,24 +187,8 @@ public class WeatherActivity extends AppCompatActivity {
             case R.id.action_refresh:
             {
 //                new task().execute();
-                // once, should be performed once per app instance
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                // a listener (kinda similar to onPostExecute())
-                Response.Listener<Bitmap> listener =
-                        new Response.Listener<Bitmap>() {
-                            @Override
-                            public void onResponse(Bitmap response) {
-                                ImageView iv = (ImageView) findViewById(R.id.logo);
-                                iv.setImageBitmap(response);
-                            }
-                        };
-                // a simple request to the required image
-                ImageRequest imageRequest = new ImageRequest(
-                        "https://usth.edu.vn/uploads/chuong-trinh/2017_01/logo-moi_2.png",
-                        listener, 0, 0, ImageView.ScaleType.CENTER,
-                        Bitmap.Config.ARGB_8888,null);
-                // go!
-                queue.add(imageRequest);
+                updateLogo2();
+                updateWeather();
                 return true;
             }
             case R.id.action_settings:
@@ -209,6 +201,71 @@ public class WeatherActivity extends AppCompatActivity {
                 super.onOptionsItemSelected(item);
         }
         return false;
+    }
+
+    private void updateWeather() {
+        final TextView tv = findViewById(R.id.description);
+        final TextView tmp = findViewById(R.id.temperature);
+        final ImageView iv = findViewById(R.id.weather_icon);
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://api.openweathermap.org/data/2.5/weather?q=Hanoi&appid=8148e263039b943f099b4a09a390c3b6";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+//                                    Log.i("res", response);
+                            JSONObject obj = new JSONObject(response);
+                            JSONArray weather_array = obj.getJSONArray("weather");
+                            JSONObject weather_obj = weather_array.getJSONObject(0);
+
+                            String desc = weather_obj.getString("main");
+                            String icon_id = weather_obj.getString("icon");
+
+                            JSONObject main_obj = obj.getJSONObject("main");
+                            String temp = main_obj.getString("temp");
+
+                            iv.setImageResource(getResources().getIdentifier("z" + icon_id, "drawable", getPackageName()));
+                            tv.setText(desc);
+                            tmp.setText(temp + " F");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                tv.setText("Error!");
+                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
+
+    private void updateLogo2() {
+        // once, should be performed once per app instance
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        // a listener (kinda similar to onPostExecute())
+        Response.Listener<Bitmap> listener =
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        ImageView iv = (ImageView) findViewById(R.id.logo);
+                        iv.setImageBitmap(response);
+                    }
+                };
+        // a simple request to the required image
+        ImageRequest imageRequest = new ImageRequest(
+                "https://usth.edu.vn/uploads/chuong-trinh/2017_01/logo-moi_2.png",
+                listener, 0, 0, ImageView.ScaleType.CENTER,
+                Bitmap.Config.ARGB_8888,null);
+        // go!
+        queue.add(imageRequest);
     }
 
     private class task extends AsyncTask<URL, Void, Bitmap>{
